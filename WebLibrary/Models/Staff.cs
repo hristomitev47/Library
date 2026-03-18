@@ -11,6 +11,6 @@
         public DateTime HireDate { get; set; }
         public decimal Salary { get; set; }
 
-        public ICollection<Loan> Loans { get; set; }
+        public ICollection<Loan>? Loans { get; set; }
     }
 }
