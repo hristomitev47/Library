@@ -1,0 +1,32 @@
+﻿<h2>Add Book</h2>
+
+<form method="post">
+
+    Title: <input name="Title" /><br />
+    ISBN: <input name="Isbn" /><br />
+    Year: <input name="PublishedYear" /><br />
+    Copies: <input name="CopiesTotal" /><br />
+
+    Author:
+    <select name="authorId">
+        @foreach (var a in (SelectList)ViewData["AuthorId"])
+        {
+            <option value="@a.Value">@a.Text</option>
+        }
+    </select>
+
+    <br />
+
+    Genre:
+    <select name="genreId">
+        @foreach (var g in (SelectList)ViewData["GenreId"])
+        {
+            <option value="@g.Value">@g.Text</option>
+        }
+    </select>
+
+    <br /><br />
+
+    <button type="submit">Save</button>
+
+</form>

@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebLibrary.Models.Book>
+
+<h2>Books</h2>
+
+<a href="/Books/Create">Add Book</a>
+
+<table border="1">
+    <tr>
+        <th>Title</th>
+        <th>Authors</th>
+        <th>Genres</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var book in Model)
+    {
+        <tr>
+            <td>@book.Title</td>
+
+            <td>
+                @foreach (var a in book.BookAuthors)
+                {
+                    @a.Author.FullName
+                    <br />
+                }
+            </td>
+
+            <td>
+                @foreach (var g in book.BookGenres)
+                {
+                    @g.Genre.Name
+                    <br />
+                }
+            </td>
+
+            <td>
+                <a href="/Books/Details/@book.BookId">Details</a> |
+                <a href="/Books/Edit/@book.BookId">Edit</a> |
+                <a href="/Books/Delete/@book.BookId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

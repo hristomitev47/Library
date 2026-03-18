@@ -1,0 +1,15 @@
+﻿@model IEnumerable<WebLibrary.Models.Review>
+
+<h2>Reviews</h2>
+
+<table border="1">
+    @foreach (var r in Model)
+    {
+        <tr>
+            <td>@r.Book.Title</td>
+            <td>@r.Member.FirstName</td>
+            <td>@r.Comment</td>
+            <td>@r.Rating</td>
+        </tr>
+    }
+</table>

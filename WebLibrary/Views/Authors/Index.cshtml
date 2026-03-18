@@ -1,0 +1,12 @@
+﻿@model IEnumerable<WebLibrary.Models.Author>
+
+<h2>Authors</h2>
+
+<a href="/Authors/Create">Add</a>
+
+<ul>
+    @foreach (var a in Model)
+    {
+        <li>@a.FullName</li>
+    }
+</ul>

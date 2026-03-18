@@ -1,0 +1,26 @@
+﻿@model IEnumerable<WebLibrary.Models.Loan>
+
+<h2>Loans</h2>
+
+<a href="/Loans/Create">New Loan</a>
+
+<table border="1">
+    <tr>
+        <th>Book</th>
+        <th>Member</th>
+        <th>Staff</th>
+        <th>From</th>
+        <th>To</th>
+    </tr>
+
+    @foreach (var l in Model)
+    {
+        <tr>
+            <td>@l.Book.Title</td>
+            <td>@l.Member.FirstName</td>
+            <td>@l.Staff.FirstName</td>
+            <td>@l.LoanDate</td>
+            <td>@l.DueDate</td>
+        </tr>
+    }
+</table>

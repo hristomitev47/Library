@@ -1,0 +1,18 @@
+﻿@model IEnumerable<WebLibrary.Models.Member>
+
+<h2>Members</h2>
+
+<a href="/Members/Create">Add Member</a>
+
+<table border="1">
+    @foreach (var m in Model)
+    {
+        <tr>
+            <td>@m.FirstName @m.LastName</td>
+            <td>@m.Email</td>
+            <td>
+                <a href="/Members/Details/@m.MemberId">Details</a>
+            </td>
+        </tr>
+    }
+</table>

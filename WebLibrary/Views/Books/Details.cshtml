@@ -1,0 +1,29 @@
+﻿@model WebLibrary.Models.Book
+
+<h2>@Model.Title</h2>
+
+<h3>Authors</h3>
+@foreach (var a in Model.BookAuthors)
+{
+    <p>@a.Author.FullName</p>
+}
+
+<h3>Genres</h3>
+@foreach (var g in Model.BookGenres)
+{
+    <p>@g.Genre.Name</p>
+}
+
+<h3>Reviews</h3>
+@foreach (var r in Model.Reviews)
+{
+    <p>
+        <b>@r.Member.FirstName:</b> @r.Comment (⭐@r.Rating)
+    </p>
+}
+
+<a href="/Reviews/Create?bookId=@Model.BookId">Add Review</a>
+
+<br />
+<br />
+<a href="/Books">Back</a>

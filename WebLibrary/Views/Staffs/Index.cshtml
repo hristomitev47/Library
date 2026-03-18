@@ -1,0 +1,12 @@
+﻿@model IEnumerable<WebLibrary.Models.Staff>
+
+<h2>Staff</h2>
+
+<a href="/Staffs/Create">Add</a>
+
+<ul>
+    @foreach (var s in Model)
+    {
+        <li>@s.FirstName @s.LastName (@s.Role)</li>
+    }
+</ul>

@@ -1,0 +1,21 @@
+﻿<h2>Add Review</h2>
+
+<form method="post">
+
+    <input type="hidden" name="BookId" value="@ViewData["BookId"]" />
+
+    MemberId: <input name="MemberId" /><br />
+
+    Comment:<br />
+    <textarea name="Comment"></textarea>
+
+    <br />
+
+    Rating:
+    <input type="number" name="Rating" min="1" max="5" />
+
+    <br /><br />
+
+    <button type="submit">Submit</button>
+
+</form>
