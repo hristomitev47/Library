@@ -11,7 +11,7 @@
         public string Phone { get; set; }
         public DateTime JoinDate { get; set; }
 
-        public ICollection<Loan> Loans { get; set; }
-        public ICollection<Review> Reviews { get; set; }
+        public ICollection<Loan>? Loans { get; set; }
+        public ICollection<Review>? Reviews { get; set; }
     }
 }
