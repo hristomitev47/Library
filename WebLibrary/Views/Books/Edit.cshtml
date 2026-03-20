@@ -1,49 +1,43 @@
-﻿@model WebLibrary.Models.Book
+@model WebLibrary.Models.Book
 
-@{
-    ViewData["Title"] = "Edit";
-}
+<h2>Edit Book</h2>
 
-<h1>Edit</h1>
+<form asp-action="Edit" method="post" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="BookId" />
+    <input type="hidden" asp-for="ImagePath" />
 
-<h4>Book</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BookId" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Isbn" class="control-label"></label>
-                <input asp-for="Isbn" class="form-control" />
-                <span asp-validation-for="Isbn" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PublishedYear" class="control-label"></label>
-                <input asp-for="PublishedYear" class="form-control" />
-                <span asp-validation-for="PublishedYear" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CopiesTotal" class="control-label"></label>
-                <input asp-for="CopiesTotal" class="form-control" />
-                <span asp-validation-for="CopiesTotal" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+    <div class="mb-2">
+        <label>Title</label>
+        <input asp-for="Title" class="form-control" />
     </div>
-</div>
+    <div class="mb-2">
+        <label>ISBN</label>
+        <input asp-for="Isbn" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Year</label>
+        <input asp-for="PublishedYear" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Copies</label>
+        <input asp-for="CopiesTotal" class="form-control" />
+    </div>
+    <div class="mb-2">
+        <label>Description</label>
+        <textarea asp-for="Description" class="form-control" rows="4"></textarea>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="mb-3">
+        <label>Book Cover Image</label><br />
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img src="@Model.ImagePath" style="max-width:120px; border-radius:4px; margin-bottom:0.5rem;" /><br />
+            <small>Upload a new image to replace the current one</small><br />
+        }
+        <input type="file" name="imageFile" class="form-control mt-1" accept="image/*" />
+    </div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Cancel</a>
+</form>
