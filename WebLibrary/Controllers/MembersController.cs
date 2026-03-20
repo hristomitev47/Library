@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebLibrary.Data;
@@ -9,6 +6,7 @@ using WebLibrary.Models;
 
 namespace LibraryWeb.Controllers
 {
+    [Authorize(Roles = "Staff")]
     public class MembersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -27,133 +25,30 @@ namespace LibraryWeb.Controllers
         // GET: Members/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+            if (id == null) return NotFound();
 
             var member = await _context.Members
                 .FirstOrDefaultAsync(m => m.MemberId == id);
 
-            if (member == null)
-            {
-                return NotFound();
-            }
+            if (member == null) return NotFound();
 
             return View(member);
         }
 
-        // GET: Members/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => Forbid();
 
-        // POST: Members/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MemberId,FirstName,LastName,MembershipType,BooksRead,Email,Phone,JoinDate")] Member member)
-        {
-            if (ModelState.IsValid)
-            {
-                member.JoinDate = DateTime.Now;
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult CreatePost() => Forbid();
 
-                _context.Add(member);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
+        public IActionResult Edit(int? id) => Forbid();
 
-            return View(member);
-        }
+        [HttpPost, ValidateAntiForgeryToken]
+        public IActionResult EditPost() => Forbid();
 
-        // GET: Members/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        public IActionResult Delete(int? id) => Forbid();
 
-            var member = await _context.Members.FindAsync(id);
-
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            return View(member);
-        }
-
-        // POST: Members/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MemberId,FirstName,LastName,MembershipType,BooksRead,Email,Phone,JoinDate")] Member member)
-        {
-            if (id != member.MemberId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(member);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!MemberExists(member.MemberId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(member);
-        }
-
-        // GET: Members/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var member = await _context.Members
-                .FirstOrDefaultAsync(m => m.MemberId == id);
-
-            if (member == null)
-            {
-                return NotFound();
-            }
-
-            return View(member);
-        }
-
-        // POST: Members/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var member = await _context.Members.FindAsync(id);
-
-            if (member != null)
-            {
-                _context.Members.Remove(member);
-            }
-
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(Index));
-        }
+        [HttpPost, ActionName("Delete"), ValidateAntiForgeryToken]
+        public IActionResult DeleteConfirmed(int id) => Forbid();
 
         private bool MemberExists(int id)
         {
