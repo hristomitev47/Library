@@ -1,29 +1,92 @@
-﻿@model WebLibrary.Models.Book
+@model WebLibrary.Models.Book
 
-<h2>@Model.Title</h2>
+<div class="book-card">
+    @if (!string.IsNullOrEmpty(Model.ImagePath))
+    {
+        <img src="@Model.ImagePath" alt="@Model.Title" style="max-width:200px; border-radius:6px; margin-bottom:1rem;" />
+    }
+    <h2>@Model.Title</h2>
 
-<h3>Authors</h3>
-@foreach (var a in Model.BookAuthors)
-{
-    <p>@a.Author.FullName</p>
-}
+    <p>
+        <b>Authors:</b>
+        @foreach (var a in Model.BookAuthors)
+        {
+            @a.Author?.FullName
+            <span> </span>
+        }
+    </p>
 
-<h3>Genres</h3>
-@foreach (var g in Model.BookGenres)
-{
-    <p>@g.Genre.Name</p>
-}
+    <p>
+        <b>Genres:</b>
+        @foreach (var g in Model.BookGenres)
+        {
+            @g.Genre?.Name
+            <span> </span>
+        }
+    </p>
+
+    <p><b>ISBN:</b> @Model.Isbn</p>
+    <p><b>Published Year:</b> @Model.PublishedYear</p>
+    <p><b>Copies Available:</b> @Model.CopiesTotal</p>
+    <p><b>Description:</b> @Model.Description</p>
+</div>
 
 <h3>Reviews</h3>
-@foreach (var r in Model.Reviews)
+@if (Model.Reviews != null && Model.Reviews.Any())
 {
-    <p>
-        <b>@r.Member.FirstName:</b> @r.Comment (⭐@r.Rating)
-    </p>
+    @foreach (var r in Model.Reviews)
+    {
+        <div class="review-item">
+            <b>@r.Member?.FirstName:</b> @r.Comment <span>⭐@r.Rating</span>
+            @if (User.IsInRole("Staff"))
+            {
+                <form asp-controller="Reviews" asp-action="Delete" asp-route-id="@r.ReviewId" method="post" style="display:inline; margin-left:1rem">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Delete this review?')">Delete</button>
+                </form>
+            }
+        </div>
+    }
+}
+else
+{
+    <p>No reviews yet.</p>
 }
 
-<a href="/Reviews/Create?bookId=@Model.BookId">Add Review</a>
+@if (User.IsInRole("Member"))
+{
+    <h4>Add a Review</h4>
+    <form asp-action="AddReview" asp-controller="Books" method="post" style="max-width:500px">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="bookId" value="@Model.BookId" />
+
+        <div class="form-group mb-2">
+            <label>Comment</label>
+            <textarea name="comment" rows="3" class="form-control"></textarea>
+        </div>
+
+        <div class="form-group mb-3">
+            <label>Rating</label>
+            <select name="rating" class="form-control">
+                <option value="1">⭐ 1</option>
+                <option value="1.5">⭐ 1.5</option>
+                <option value="2">⭐⭐ 2</option>
+                <option value="2.5">⭐⭐ 2.5</option>
+                <option value="3">⭐⭐⭐ 3</option>
+                <option value="3.5">⭐⭐⭐ 3.5</option>
+                <option value="4">⭐⭐⭐⭐ 4</option>
+                <option value="4.5">⭐⭐⭐⭐ 4.5</option>
+                <option value="5">⭐⭐⭐⭐⭐ 5</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+
+    <br />
+    <a href="/Loans/Create?bookId=@Model.BookId" class="btn btn-success">Borrow this Book</a>
+}
 
 <br />
 <br />
-<a href="/Books">Back</a>
+<a href="/Books">← Back to Books</a>
