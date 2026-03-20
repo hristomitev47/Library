@@ -1,14 +1,16 @@
-﻿using System;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using WebLibrary.Data;
 using WebLibrary.Models;
 
 namespace LibraryWeb.Controllers
 {
+    [Authorize(Roles = "Staff")]
     public class GenresController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -54,6 +56,11 @@ namespace LibraryWeb.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("GenreId,Name")] Genre genre)
         {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+                return Content("ModelState invalid: " + string.Join(", ", errors));
+            }
             if (ModelState.IsValid)
             {
                 _context.Add(genre);
