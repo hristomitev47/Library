@@ -1,8 +1,17 @@
-﻿@model IEnumerable<WebLibrary.Models.Loan>
+@model IEnumerable<WebLibrary.Models.Loan>
 
 <h2>Loans</h2>
 
-<a href="/Loans/Create">New Loan</a>
+@if (User.IsInRole("Staff"))
+{
+    <a href="/Loans?filter=Active">Active</a>
+    <span> | </span>
+    <a href="/Loans?filter=Returned">Returned</a>
+    <span> | </span>
+    <a href="/Loans?filter=Overdue">Overdue</a>
+    <span> | </span>
+    <a href="/Loans">All</a>
+}
 
 <table border="1">
     <tr>
@@ -11,16 +20,39 @@
         <th>Staff</th>
         <th>From</th>
         <th>To</th>
+        <th>Status</th>
+        @if (User.IsInRole("Staff"))
+        {
+            <th>Actions</th>
+        }
     </tr>
 
     @foreach (var l in Model)
     {
         <tr>
-            <td>@l.Book.Title</td>
-            <td>@l.Member.FirstName</td>
-            <td>@l.Staff.FirstName</td>
-            <td>@l.LoanDate</td>
-            <td>@l.DueDate</td>
+            <td>@l.Book?.Title</td>
+            <td>@l.Member?.FirstName</td>
+            <td>@(l.Staff != null ? l.Staff.FirstName : "-")</td>
+            <td>@l.LoanDate.ToShortDateString()</td>
+            <td>@l.DueDate.ToShortDateString()</td>
+            <td>@l.LoanStatus</td>
+            @if (User.IsInRole("Staff"))
+            {
+                <td>
+                    @if (l.LoanStatus == "Active")
+                    {
+                        <form asp-action="Return" asp-route-id="@l.LoanId" method="post" style="display:inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit">Mark Returned</button>
+                        </form>
+                        <span> | </span>
+                    }
+                    <form asp-action="Delete" asp-route-id="@l.LoanId" method="post" style="display:inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" onclick="return confirm('Are you sure?')">Delete</button>
+                    </form>
+                </td>
+            }
         </tr>
     }
 </table>
