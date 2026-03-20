@@ -1,14 +1,14 @@
-﻿@model WebLibrary.Models.Genre
+@model WebLibrary.Models.Genre
 
 <h2>Add Genre</h2>
 
-<form method="post">
+<form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
 
     <label>Name</label><br />
     <input type="text" name="Name" style="width:300px;" />
 
     <br /><br />
-
     <button type="submit">Save</button>
 
 </form>
