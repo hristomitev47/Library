@@ -1,31 +1,229 @@
-html {
-  font-size: 14px;
+/* ===== GLOBAL ===== */
+html, body {
+    font-family: 'Georgia', serif;
+    background-color: #f8f4e9;
+    color: #1a1a1a;
+    margin: 0;
+    padding: 0;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+a {
+    color: #c4520a;
+    text-decoration: none;
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    a:hover {
+        text-decoration: underline;
+        color: #a03d00;
+    }
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background-color: #1a2b4a !important;
+    padding: 0.8rem 1.5rem;
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+.navbar-brand {
+    color: #ffffff !important;
+    font-size: 1.5rem;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
-body {
-  margin-bottom: 60px;
+    .navbar-brand:hover {
+        color: #f0c040 !important;
+    }
+
+.nav-link {
+    color: #d0d8e8 !important;
+    font-size: 0.95rem;
+    margin-right: 0.5rem;
 }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
+    .nav-link:hover {
+        color: #f0c040 !important;
+    }
+
+/* ===== LIBRARY NAV LINKS ===== */
+.lib-nav {
+    background-color: #1a2b4a;
+    padding: 0.6rem 1.5rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
 }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .lib-nav a {
+        color: #d0d8e8;
+        font-size: 0.9rem;
+    }
+
+        .lib-nav a:hover {
+            color: #f0c040;
+            text-decoration: none;
+        }
+
+/* ===== MAIN CONTAINER ===== */
+.container {
+    max-width: 1100px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
 }
+
+/* ===== HEADINGS ===== */
+h1, h2, h3, h4 {
+    color: #1a2b4a;
+    font-family: 'Georgia', serif;
+}
+
+h2 {
+    border-bottom: 2px solid #c4520a;
+    padding-bottom: 0.3rem;
+    margin-bottom: 1.2rem;
+}
+
+/* ===== TABLES ===== */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+thead {
+    background-color: #1a2b4a;
+    color: #ffffff;
+}
+
+    thead th {
+        padding: 0.75rem 1rem;
+        text-align: left;
+        font-weight: 600;
+    }
+
+tbody tr {
+    border-bottom: 1px solid #e8e0d0;
+}
+
+    tbody tr:hover {
+        background-color: #fdf6e3;
+    }
+
+tbody td {
+    padding: 0.65rem 1rem;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background-color: #c4520a;
+    border-color: #c4520a;
+    color: #fff;
+    border-radius: 4px;
+    padding: 0.4rem 1rem;
+}
+
+    .btn-primary:hover {
+        background-color: #a03d00;
+        border-color: #a03d00;
+    }
+
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #2e7d32;
+}
+
+    .btn-success:hover {
+        background-color: #1b5e20;
+    }
+
+.btn-danger {
+    background-color: #b71c1c;
+    border-color: #b71c1c;
+}
+
+/* ===== FORMS ===== */
+.form-control {
+    border: 1px solid #c8bca0;
+    border-radius: 4px;
+    background-color: #fffdf7;
+}
+
+    .form-control:focus {
+        border-color: #c4520a;
+        box-shadow: 0 0 0 0.2rem rgba(196, 82, 10, 0.2);
+    }
+
+label {
+    font-weight: 600;
+    color: #1a2b4a;
+    margin-bottom: 0.3rem;
+    display: block;
+}
+
+/* ===== BOOK CARD ===== */
+.book-card {
+    background: #fff;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-bottom: 1.5rem;
+}
+
+    .book-card h3 {
+        font-size: 1rem;
+        color: #1a2b4a;
+        margin-top: 0.8rem;
+        margin-bottom: 0.2rem;
+        border-bottom: none;
+    }
+
+    .book-card p {
+        font-size: 1rem;
+        margin: 0.2rem 0;
+    }
+
+/* ===== REVIEWS ===== */
+.review-item {
+    background: #fffdf7;
+    border-left: 4px solid #c4520a;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+    border-radius: 0 4px 4px 0;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+    background-color: #1a2b4a;
+    color: #a0b0c8;
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 0.85rem;
+    margin-top: 3rem;
+}
+
+    .footer a {
+        color: #d0d8e8;
+    }
+
+        .footer a:hover {
+            color: #f0c040;
+        }
+
+/* ===== ADD BOOK LINK ===== */
+.add-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    background-color: #c4520a;
+    color: #fff;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+    .add-link:hover {
+        background-color: #a03d00;
+        color: #fff;
+        text-decoration: none;
+    }
